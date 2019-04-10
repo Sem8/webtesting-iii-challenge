@@ -5,7 +5,8 @@ import {
   fireEvent,
   cleanup,
   getByText,
-  queryByText
+  queryByText,
+  querySelector
 } from "react-testing-library";
 import renderer from "react-test-renderer";
 
@@ -53,5 +54,15 @@ describe("Gate behavior when locked", () => {
     fireEvent.click(dashboard.getByText(/Open Gate/));
     expect(dashboard.getByText(/locked/i)).toBeTruthy();
     expect(dashboard.getByText(/closed/i)).toBeTruthy();
+  });
+  it("when locked or closed use the red-led class", () => {
+    const dashboard = render(<Dashboard />);
+    fireEvent.click(dashboard.getByText(/Close Gate/));
+    fireEvent.click(dashboard.getByText(/Lock Gate/));
+    // expect(dashboard.querySelector(".red-led"));
+    // expect(dashboard.queryByText(/green-led/i)).toBeNull();
+    expect(dashboard.getByText("Locked").className).toBe("led red-led");
+    expect(dashboard.getByText("Closed").className).toBe("led red-led");
+    expect(dashboard.getByText("Locked").className).not.toBe("led green-led");
   });
 });
