@@ -6,9 +6,12 @@ import renderer from "react-test-renderer";
 
 import Display from "./Display.js";
 
-describe.skip("<Display />", () => {
-  it("matches snapshot of Display", () => {
+describe("<Display />", () => {
+  it.skip("matches snapshot of Display", () => {
     const tree = renderer.create(<Display />).toJSON();
     expect(tree).toMatchSnapshot();
+  });
+  it("renders Display component successfully", () => {
+    render(<Display />);
   });
 });

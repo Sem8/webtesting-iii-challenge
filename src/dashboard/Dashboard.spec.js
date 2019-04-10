@@ -9,9 +9,12 @@ afterEach(() => {
   cleanup();
 });
 
-describe.skip("<Dashboard />", () => {
-  it("matches snapshot of Dashboard", () => {
+describe("<Dashboard />", () => {
+  it.skip("matches snapshot of Dashboard", () => {
     const tree = renderer.create(<Dashboard />).toJSON();
     expect(tree).toMatchSnapshot();
+  });
+  it("renders Dashboard component successfully", () => {
+    render(<Dashboard />);
   });
 });
