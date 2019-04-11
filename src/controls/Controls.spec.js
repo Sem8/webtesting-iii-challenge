@@ -18,3 +18,27 @@ describe.skip("<Controls />", () => {
 // //   expect(queryByText(/Close Gate/i)).toBeNull(); // this test should fail
 //   expect(queryByText(/Open Gate/i)).toBeNull();
 // });
+describe("disable button functionality of Gate using mock", () => {
+  it("the closed toggle button is disabled if the gate is closed", () => {
+    const closeMock = jest.fn();
+    const control = render(<Controls toggleClosed={closeMock} />);
+    const closeGateBtn = control.getByText("Close Gate");
+    expect(closeMock()).toBeDefined;
+    fireEvent.click(closeGateBtn);
+    expect(closeMock).toHaveBeenCalledTimes(2);
+    expect(closeMock()).toBeUndefined;
+    expect(closeGateBtn).toBeFalsy;
+  });
+  it("the locked toggle button is disabled if the gate is open", () => {
+    const lockMock = jest.fn();
+    const control = render(<Controls toggleLocked={lockMock} />);
+    const lockGateBtn = control.getByText("Lock Gate");
+    expect(lockMock()).toBeUnDefined;
+    expect(lockGateBtn).toBeTruthy;
+    fireEvent.click(lockGateBtn);
+    expect(lockMock).toHaveBeenCalledTimes(1);
+    expect(lockMock()).toBeDefined;
+    // expect(lockMock()).toBeTruthy;
+    expect(lockGateBtn).toBeTruthy;
+  });
+});
